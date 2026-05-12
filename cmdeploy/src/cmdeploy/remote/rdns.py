@@ -97,6 +97,7 @@ def query_authoritative_nameserver(domain):
 
 
 def query_soa(domain):
+    domain = domain.rstrip(".")
     answers = [
         x.split()
         for x in shell(
@@ -105,7 +106,13 @@ def query_soa(domain):
         ).split("\n")
     ]
     return next(
-        (answer for answer in answers if len(answer) >= 5 and answer[3] == "SOA"),
+        (
+            answer
+            for answer in answers
+            if len(answer) >= 5
+            and answer[0].rstrip(".") == domain
+            and answer[3] == "SOA"
+        ),
         None,
     )
 

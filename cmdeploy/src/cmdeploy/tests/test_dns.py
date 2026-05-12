@@ -144,7 +144,7 @@ class TestPerformInitialChecks:
 
     def test_perform_initial_checks_uses_parent_zone_soa(self, mockdns):
         mockdns["SOA"] = {
-            "some.domain": "",
+            "some.domain": "root. 21600 IN SOA ns1.root.example. dns.root.example.",
             "domain": "domain. 21600 IN SOA ns1.example.org. dns.example.org.",
         }
 
